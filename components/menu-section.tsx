@@ -1,5 +1,5 @@
-import { Card } from "@/components/ui/card";
-import Image from "next/image";
+import { DishCard } from "@/components/dish";
+import { DateTime } from "luxon";
 
 export interface Menu {
   [key: string]: MenuItem[];
@@ -13,6 +13,7 @@ export interface MenuItem {
   description: string;
   price: string;
   image: string;
+  time_restriction?: string;
 }
 
 export interface MenuSectionProps {
@@ -21,18 +22,22 @@ export interface MenuSectionProps {
 }
 
 export function MenuSection({ title, items }: MenuSectionProps) {
-  console.log(items.slice(0, 2));
+  const filteredItems = items.filter((item) =>
+    isAvailableNow(item.time_restriction)
+  );
+
   return (
     <section className="scroll-mb-[93px] px-4">
       <h2 className="mb-4 text-xl font-bold text-balance">{title}</h2>
       <div className="flex flex-col gap-4 sm:grid sm:grid-cols-2 md:grid-cols-3">
-        {items.map((item, i) => (
+        {filteredItems.map((item, i) => (
           <div key={`${item.name}-${i}`}>
             <DishCard
               title={item.name}
               description={item.description}
               image={item.image}
               price={item.price}
+              time_restriction={item.time_restriction}
             />
           </div>
         ))}
@@ -41,45 +46,17 @@ export function MenuSection({ title, items }: MenuSectionProps) {
   );
 }
 
-export interface Dish {
-  title: string;
-  description: string;
-  price: string;
-  category?: string;
-  image?: string;
-  subcategory?: string;
-}
+function isAvailableNow(timeRestriction?: string) {
+  if (!timeRestriction) return true;
 
-export function DishCard({ title, description, price, image }: Dish) {
-  return (
-    <Card className="max-h-96 min-h-64 max-w-96 min-w-64 overflow-hidden rounded-lg py-0 shadow-sm transition-shadow hover:shadow-md">
-      <div className="flex h-full flex-col">
-        {/* Image section - takes up most of the card */}
-        <div className="flex-1 overflow-hidden">
-          <Image
-            src={image || "/no-image.png"}
-            width={500}
-            height={500}
-            alt={title}
-            className="h-full w-full rounded-t-lg object-cover hover:scale-125 transition-all duration-300"
-          />
-        </div>
+  const [start, end] = timeRestriction.split("-").map((t) => t.trim());
+  const now = DateTime.now().setZone("Europe/Moscow");
 
-        {/* Content section - compact area for text */}
-        <div className="flex justify-between space-y-1 p-4">
-          <div className="flex flex-col gap-1">
-            <h3 className="line-clamp-1 text-sm leading-tight font-semibold">
-              {title}
-            </h3>
-            <p className="text-muted-foreground text-xs leading-tight">
-              {description}
-            </p>
-          </div>
-          <p className="text-primary bg-accent rounded-lg p-1 font-bold whitespace-nowrap">
-            {price} р.
-          </p>
-        </div>
-      </div>
-    </Card>
-  );
+  const [startH, startM] = start.split(":").map(Number);
+  const [endH, endM] = end.split(":").map(Number);
+
+  const startTime = now.set({ hour: startH, minute: startM, second: 0 });
+  const endTime = now.set({ hour: endH, minute: endM, second: 0 });
+
+  return now >= startTime && now <= endTime;
 }

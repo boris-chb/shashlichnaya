@@ -33,15 +33,19 @@ export function DrinksTabs({ drinks }: DrinksTabsProps) {
                   {items.map((item) => (
                     <div
                       key={item.name + item.price}
-                      className="flex flex-col justify-between rounded-lg border p-2 text-sm"
+                      className="flex justify-between items-center rounded-lg border p-2 text-sm"
                     >
-                      <p className="font-semibold">{item.name}</p>
-                      {item.description && (
-                        <p className="text-muted-foreground text-xs">
-                          {item.description}
-                        </p>
-                      )}
-                      <p className="font-bold">{item.price} р.</p>
+                      <div className="flex flex-col gap-1">
+                        <p className="font-semibold">{item.name}</p>
+                        {item.description && (
+                          <p className="text-muted-foreground text-xs">
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
+                      <p className="font-bold whitespace-nowrap">
+                        {item.price} р.
+                      </p>
                     </div>
                   ))}
                 </CardContent>
