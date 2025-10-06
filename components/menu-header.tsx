@@ -1,8 +1,8 @@
-import { Search, Menu } from "lucide-react";
+import { CategoryTabs } from "@/components/category-tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Menu, Search } from "lucide-react";
 import Image from "next/image";
-import { CategoryTabs } from "@/components/category-tabs";
 
 type Category = {
   id: string;
@@ -27,10 +27,10 @@ export function MenuHeader({
           <Image src="/bufet-logo.jpg" alt="logo" width={50} height={50} />
           <div>
             <h1 className="text-lg font-bold text-balance">
-              {`Алко-буфет "Шашлычная"`}
+              {`Горбуфет Шашлычная`}
             </h1>
             <p className="text-muted-foreground text-xs">
-              {`Fine Dining Experience`}
+              {`Домашние блюда, приготовленные с душой`}
             </p>
           </div>
         </div>

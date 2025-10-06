@@ -38,18 +38,27 @@ export default function RestaurantMenu({ menu }: { menu: Menu }) {
         onCategoryClick={handleCategoryClick}
       />
       <main className="pb-6">
-        <DrinksTabs />
         <div className="space-y-8">
-          {categories.map((category) => (
-            <div
-              key={category.id}
-              ref={(el) => {
-                sectionRefs.current[category.id] = el;
-              }}
-            >
-              <MenuSection title={category.label} items={menu[category.id]} />
-            </div>
-          ))}
+          {categories.map((category) => {
+            if (category.id === "drink") return null;
+            return (
+              <div
+                key={category.id}
+                ref={(el) => {
+                  sectionRefs.current[category.id] = el;
+                }}
+              >
+                <MenuSection title={category.label} items={menu[category.id]} />
+              </div>
+            );
+          })}
+        </div>
+        <div
+          ref={(el) => {
+            sectionRefs.current["drink"] = el;
+          }}
+        >
+          <DrinksTabs drinks={menu.drink} />
         </div>
       </main>
     </div>
@@ -58,10 +67,11 @@ export default function RestaurantMenu({ menu }: { menu: Menu }) {
 
 function getCategoryLabel(key: string) {
   const labelMap: Record<string, string> = {
-    main: "ПРЕЙСКУРАНТ БЛЮД",
-    lunch: "ПРЕЙСКУРАНТ НА ОБЕД",
-    night: "НОЧНОЕ БЛЮДО",
-    drink: "ПРЕЙСКУРАНТ НАПИТКОВ",
+    main: "Прейскурант блюд",
+    lunch: "Прейскурант на обед",
+    night: "Ночное блюдо",
+    drink: "Прейскурант напитков",
   };
+
   return labelMap[key] || key;
 }

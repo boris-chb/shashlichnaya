@@ -1,76 +1,54 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { MenuItem } from "@/components/menu-section";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export function DrinksTabs() {
+type DrinksTabsProps = {
+  drinks: MenuItem[];
+};
+
+export function DrinksTabs({ drinks }: DrinksTabsProps) {
+  const subcategories = Array.from(new Set(drinks.map((d) => d.subcategory)));
+
   return (
     <div className="flex w-full flex-col gap-6 p-2">
       <h1 className="text-2xl font-bold">Напитки</h1>
-      <Tabs defaultValue="tincture">
+      <Tabs defaultValue={subcategories[0]}>
         <TabsList>
-          <TabsTrigger value="tincture">Настойки</TabsTrigger>
-          <TabsTrigger value="vodka">Водка</TabsTrigger>
-          <TabsTrigger value="beer-draught">Пиво разливное</TabsTrigger>
-          <TabsTrigger value="beer-bottle">Пиво бутылочное</TabsTrigger>
+          {subcategories.map((sub) => (
+            <TabsTrigger key={sub} value={sub!}>
+              {sub}
+            </TabsTrigger>
+          ))}
         </TabsList>
-        <TabsContent value="beer-draught">
-          <Card>
-            <CardHeader>
-              <CardTitle>Свежее пиво разливное</CardTitle>
-            </CardHeader>
-            <CardContent className="flex gap-6">
-              {/* <Image src="/beer.jpg" alt="beer" width={200} height={200} /> */}
-              Пиво разливное 300руб
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="beer-bottle">
-          <Card>
-            <CardHeader>
-              <CardTitle>Пиво бутылочное</CardTitle>
-            </CardHeader>
-            <CardContent className="flex gap-6">
-              {/* <Image src="/beer.jpg" alt="beer" width={200} height={200} /> */}
-              <p>Пиво 1 300руб</p>
-              <p>Пиво 2 300руб</p>
-              <p>Пиво 3 300руб</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="vodka">
-          <Card>
-            <CardHeader>
-              <CardTitle>Пиво бутылочное</CardTitle>
-            </CardHeader>
-            <CardContent className="flex gap-6">
-              {/* <Image src="/beer.jpg" alt="beer" width={200} height={200} /> */}
-              <p>Водка 1 500руб</p>
-              <p>Водка 2 500руб</p>
-              <p>Водка 3 500руб</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="tincture">
-          <Card>
-            <CardHeader>
-              <CardTitle>Настойки</CardTitle>
-              <CardDescription>40 мл.</CardDescription>
-            </CardHeader>
-            <CardContent className="grid grid-cols-3 gap-6">
-              {/* <Image src="/beer.jpg" alt="beer" width={200} height={200} /> */}
-              <div>Таксистовка 290</div>
-              <div>Цитрус 290 </div>
-              <div>Яблоко-Щавель 290 </div>
-              <div>Крыжовник 290</div>
-              <div>Маракуйя 290 </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+
+        {subcategories.map((sub) => {
+          const items = drinks.filter((d) => d.subcategory === sub);
+          return (
+            <TabsContent key={sub} value={sub!}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>{sub}</CardTitle>
+                </CardHeader>
+                <CardContent className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {items.map((item) => (
+                    <div
+                      key={item.name + item.price}
+                      className="flex flex-col justify-between rounded-lg border p-2 text-sm"
+                    >
+                      <p className="font-semibold">{item.name}</p>
+                      {item.description && (
+                        <p className="text-muted-foreground text-xs">
+                          {item.description}
+                        </p>
+                      )}
+                      <p className="font-bold">{item.price} р.</p>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </TabsContent>
+          );
+        })}
       </Tabs>
     </div>
   );

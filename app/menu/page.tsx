@@ -14,9 +14,13 @@ export type TableColumn = {
 
 export default async function MenuPage() {
   const menu = await getMenu();
-  if (!menu) return <>no menu</>;
+  if (!menu) return <p>Не удалось найти меню</p>;
 
-  return <RestaurantMenu menu={groupMenuItems(menu)} />;
+  const groupedMenu = groupMenuItems(menu);
+
+  console.log(groupedMenu);
+
+  return <RestaurantMenu menu={groupedMenu} />;
 }
 
 async function getMenu() {
@@ -37,10 +41,8 @@ async function getMenu() {
 
     // Convert to normal JSON format
     const normalJson = parsedData.table.rows.map((row: TableRow) => {
-      console.log(row);
       const item: Record<string, unknown> = {};
       parsedData.table.cols.forEach((col: TableColumn, index: number) => {
-        console.log(col, index);
         if (row.c && row.c[index] && row.c[index].v !== null) {
           item[col.label || col.id] = row.c[index].v;
         }
