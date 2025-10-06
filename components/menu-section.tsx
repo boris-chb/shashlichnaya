@@ -38,7 +38,7 @@ export const MenuSection = forwardRef<HTMLDivElement, MenuSectionProps>(
         <h2 className="mb-4 text-xl md:text-3xl font-bold text-balance">
           {title}
         </h2>
-        <div className="flex flex-col gap-4 sm:grid sm:grid-cols-2 md:grid-cols-3  2xl:grid-cols-4">
+        <div className="flex flex-col gap-4 sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           {filteredItems.map((item, i) => (
             <DishCard
               key={`${item.name}-${i}`}
