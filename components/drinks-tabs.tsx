@@ -13,14 +13,15 @@ export function DrinksTabs({ drinks }: DrinksTabsProps) {
     <div className="flex w-full flex-col gap-6 p-2">
       <h1 className="text-2xl font-bold">Напитки</h1>
       <Tabs defaultValue={subcategories[0]}>
-        <TabsList>
-          {subcategories.map((sub) => (
-            <TabsTrigger key={sub} value={sub!}>
-              {sub}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-
+        <div className="overflow-x-auto">
+          <TabsList className="flex gap-2 min-w-max">
+            {subcategories.map((sub) => (
+              <TabsTrigger key={sub} value={sub!}>
+                {sub}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
         {subcategories.map((sub) => {
           const items = drinks.filter((d) => d.subcategory === sub);
           return (

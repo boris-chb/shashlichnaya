@@ -23,12 +23,13 @@ export function DishCard({
 }: Dish) {
   const [expanded, setExpanded] = useState(false);
 
+  console.log(image);
   return (
     <Card className="w-full overflow-hidden rounded-lg py-0 shadow-sm transition-shadow hover:shadow-md">
       <div className="flex h-full flex-col">
         <div className="flex-1 overflow-hidden">
           <Image
-            src={image || "/no-image.png"}
+            src={isValidUrl(image) ? image! : "/no-image.png"}
             width={500}
             height={500}
             alt={title}
@@ -69,4 +70,14 @@ export function DishCard({
       </div>
     </Card>
   );
+}
+
+function isValidUrl(url?: string) {
+  if (!url) return false;
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
 }
