@@ -37,30 +37,27 @@ export default function RestaurantMenu({ menu }: { menu: Menu }) {
         activeCategory={activeCategory}
         onCategoryClick={handleCategoryClick}
       />
-      <main className="pb-6">
-        <div className="space-y-8">
-          {categories.map((category) => {
-            if (category.id === "drink") return null;
-            return (
-              <div
-                key={category.id}
-                ref={(el) => {
-                  sectionRefs.current[category.id] = el;
-                }}
-              >
-                <MenuSection title={category.label} items={menu[category.id]} />
-              </div>
-            );
-          })}
-        </div>
-        <div
-          ref={(el) => {
-            sectionRefs.current["drink"] = el;
-          }}
-        >
-          <DrinksTabs drinks={menu.drink} />
-        </div>
-      </main>
+      <div className="flex flex-col gap-8 mt-4">
+        {categories.map((category) => {
+          if (category.id === "drink") return null;
+          return (
+            <MenuSection
+              ref={(el) => {
+                sectionRefs.current[category.id] = el;
+              }}
+              title={category.label}
+              items={menu[category.id]}
+            />
+          );
+        })}
+      </div>
+      <div
+        ref={(el) => {
+          sectionRefs.current["drink"] = el;
+        }}
+      >
+        <DrinksTabs drinks={menu.drink} />
+      </div>
     </div>
   );
 }

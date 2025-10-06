@@ -21,10 +21,16 @@ export function MenuHeader({
   onCategoryClick,
 }: CategoryTabsProps) {
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 border-border sticky top-0 z-50 border-b backdrop-blur">
+    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/75 border-primary/10 sticky top-0 z-50 border-b backdrop-blur">
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
-          <Image src="/bufet-logo.jpg" alt="logo" width={50} height={50} />
+          <Image
+            src="/bufet-logo.jpg"
+            alt="logo"
+            width={64}
+            height={64}
+            className="rounded-full"
+          />
           <div>
             <h1 className="text-lg font-bold text-balance">
               {`Горбуфет Шашлычная`}
