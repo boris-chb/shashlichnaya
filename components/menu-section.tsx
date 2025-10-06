@@ -54,6 +54,8 @@ export const MenuSection = forwardRef<HTMLDivElement, MenuSectionProps>(
   }
 );
 
+MenuSection.displayName = "MenuSection";
+
 function isAvailableNow(timeRestriction?: string) {
   if (!timeRestriction) return true;
 

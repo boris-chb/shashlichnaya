@@ -45,6 +45,7 @@ export default function RestaurantMenu({ menu }: { menu: Menu }) {
               ref={(el) => {
                 sectionRefs.current[category.id] = el;
               }}
+              key={category.id}
               title={category.label}
               items={menu[category.id]}
             />
