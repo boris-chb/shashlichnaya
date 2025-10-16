@@ -1,5 +1,6 @@
 import RestaurantMenu from "@/components/menu";
 import { Menu, MenuItem } from "@/components/menu-section";
+import { Metadata } from "next";
 
 export type TableRow = {
   c: Array<{ v: string | number; f?: string }>;
@@ -12,13 +13,16 @@ export type TableColumn = {
   pattern?: string;
 };
 
+export const metadata: Metadata = {
+  title: "Меню | Горбуфет «Шашлычная»",
+  description: "Ассортимент блюд сети ресторанов «Шашлычная»",
+};
+
 export default async function MenuPage() {
   const menu = await getMenu();
   if (!menu) return <p>Не удалось найти меню</p>;
 
   const groupedMenu = groupMenuItems(menu);
-
-  console.log(groupedMenu);
 
   return <RestaurantMenu menu={groupedMenu} />;
 }

@@ -24,6 +24,7 @@ export function DishCard({
   const [expanded, setExpanded] = useState(false);
 
   console.log(image);
+
   return (
     <Card className="w-full overflow-hidden rounded-lg py-0 shadow-sm transition-shadow hover:shadow-md">
       <div className="flex h-full flex-col">
@@ -33,7 +34,7 @@ export function DishCard({
             width={500}
             height={500}
             alt={title}
-            className="h-full w-full rounded-t-lg object-cover hover:scale-125 transition-all duration-500"
+            className="h-full aspect-square w-full rounded-t-lg object-cover hover:scale-125 transition-all duration-500"
           />
         </div>
         <div className="flex justify-between space-x-4 p-4">

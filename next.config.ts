@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "*.cloudinary.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "*.storage.yandex.net",
         port: "",
         pathname: "/**",
@@ -14,6 +20,17 @@ const nextConfig: NextConfig = {
         hostname: "downloader.disk.yandex.ru",
         port: "",
         pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.yandex.ru",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "sun9-**.userapi.com",
+        pathname: "/s/**",
       },
     ],
     // unoptimized: true,
