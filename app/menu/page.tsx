@@ -24,7 +24,11 @@ export default async function MenuPage() {
 
   const groupedMenu = groupMenuItems(menu);
 
-  return <RestaurantMenu menu={groupedMenu} />;
+  return (
+    <div className="bg-background min-h-full">
+      <RestaurantMenu menu={groupedMenu} />
+    </div>
+  );
 }
 
 async function getMenu() {

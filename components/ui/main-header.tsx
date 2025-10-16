@@ -15,16 +15,16 @@ export function MainHeader({
       )}
       {...rest}
     >
-      <div className="flex items-center justify-between p-4">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between px-2 py-4 gap-2">
+        <div className="flex items-center ">
           <Image
             src="/bufet-logo.jpg"
             alt="logo"
-            width={64}
-            height={64}
-            className="rounded-full"
+            width={48}
+            height={48}
+            className="rounded-full p-1"
           />
-          <div>
+          <div className="flex flex-col">
             <h1 className="text-lg font-bold text-balance">
               {`Горбуфет Шашлычная`}
             </h1>
@@ -34,7 +34,7 @@ export function MainHeader({
           </div>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 basis-1/4 items-center justify-end">
           <Link href="/about" className="text-gray-700 hover:text-gray-900">
             О нас
           </Link>

@@ -25,7 +25,8 @@ export interface MenuSectionProps extends HTMLAttributes<HTMLDivElement> {
 
 export const MenuSection = forwardRef<HTMLDivElement, MenuSectionProps>(
   ({ title, items, className, ...rest }, ref) => {
-    const filteredItems = items.filter((item) =>
+    if (!items) return null;
+    const filteredItems = items?.filter((item) =>
       isAvailableNow(item.time_restriction)
     );
 
@@ -39,7 +40,7 @@ export const MenuSection = forwardRef<HTMLDivElement, MenuSectionProps>(
           {title}
         </h2>
         <div className="flex flex-col gap-4 sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-          {filteredItems.map((item, i) => (
+          {filteredItems?.map((item, i) => (
             <DishCard
               key={`${item.name}-${i}`}
               title={item.name}

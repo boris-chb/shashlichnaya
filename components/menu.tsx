@@ -7,12 +7,33 @@ import { useEffect, useRef, useState } from "react";
 
 export default function RestaurantMenu({ menu }: { menu: Menu }) {
   const [activeCategory, setActiveCategory] = useState("");
+  const [currentMenu, setMenu] = useState<Menu>(menu);
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const categories = Object.keys(menu).map((key) => ({
     id: key,
     label: getCategoryLabel(key),
   }));
+
+  function searchMenu(query: string) {
+    if (!query.trim()) {
+      setMenu(menu);
+      return;
+    }
+
+    const q = query.toLowerCase();
+    const filtered = Object.entries(menu).reduce((acc, [key, items]) => {
+      const matched = items.filter(
+        (item) =>
+          item?.name?.toLowerCase().includes(q) ||
+          item?.description?.toLowerCase().includes(q)
+      );
+      if (matched.length) acc[key] = matched;
+      return acc;
+    }, {} as Menu);
+
+    setMenu(filtered);
+  }
 
   useEffect(() => {
     const element = sectionRefs.current[activeCategory];
@@ -26,16 +47,13 @@ export default function RestaurantMenu({ menu }: { menu: Menu }) {
     }
   }, [activeCategory]);
 
-  const handleCategoryClick = (categoryId: string) => {
-    setActiveCategory(categoryId);
-  };
-
   return (
-    <div className="bg-background min-h-screen">
+    <>
       <MenuHeader
         categories={categories}
         activeCategory={activeCategory}
-        onCategoryClick={handleCategoryClick}
+        onCategoryClick={setActiveCategory}
+        onSearchMenu={searchMenu}
       />
       <div className="flex flex-col gap-8 mt-4">
         {categories.map((category) => {
@@ -47,19 +65,21 @@ export default function RestaurantMenu({ menu }: { menu: Menu }) {
               }}
               key={category.id}
               title={category.label}
-              items={menu[category.id]}
+              items={currentMenu[category.id]}
             />
           );
         })}
       </div>
-      <div
-        ref={(el) => {
-          sectionRefs.current["drink"] = el;
-        }}
-      >
-        <DrinksTabs drinks={menu.drink} />
-      </div>
-    </div>
+      {"drink" in currentMenu && (
+        <div
+          ref={(el) => {
+            sectionRefs.current["drink"] = el;
+          }}
+        >
+          <DrinksTabs drinks={currentMenu.drink} />
+        </div>
+      )}
+    </>
   );
 }
 
@@ -70,6 +90,5 @@ function getCategoryLabel(key: string) {
     night: "Ночное блюдо",
     drink: "Прейскурант напитков",
   };
-
   return labelMap[key] || key;
 }

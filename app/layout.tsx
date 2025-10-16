@@ -31,15 +31,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log(grotesk.className);
   return (
-    <html lang="en">
+    <html lang="ru">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${grotesk.variable} antialiased`}
       >
-        <MainHeader className={`${grotesk.className} `} />
-
-        {children}
+        <MainHeader
+          className={`${grotesk.className} fixed top-0 left-0 w-full z-50`}
+        />
+        <div className="pt-20 bg-background min-h-screen">{children}</div>
+        <footer className="row-start-3 flex flex-col items-center justify-center gap-2 py-6 text-sm text-muted-foreground">
+          <p>© 2025 Шашлычная</p>
+          <p className="text-xs">С любовью приготовлено для вас ❤️</p>
+        </footer>
       </body>
     </html>
   );

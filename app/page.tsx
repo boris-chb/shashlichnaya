@@ -17,10 +17,6 @@ export default function Home() {
           О нас
         </Link>
       </main>
-      <footer className="row-start-3 flex flex-col items-center justify-center gap-2 py-6 text-sm text-muted-foreground">
-        <p>© 2025 Шашлычная</p>
-        <p className="text-xs">С любовью приготовлено для вас ❤️</p>
-      </footer>
     </div>
   );
 }
