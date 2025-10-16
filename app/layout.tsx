@@ -34,12 +34,12 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${grotesk.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${grotesk.variable} antialiased bg-yellow-50/30`}
       >
         <MainHeader
           className={`${grotesk.className} fixed top-0 left-0 w-full z-50`}
         />
-        <div className="pt-20 bg-background min-h-screen">{children}</div>
+        <div className="pt-20  min-h-screen ">{children}</div>
         <footer className="row-start-3 flex flex-col items-center justify-center gap-2 py-6 text-sm text-muted-foreground">
           <p>© 2025 Шашлычная</p>
           <p className="text-xs">С любовью приготовлено для вас ❤️</p>

@@ -24,43 +24,45 @@ export function DishCard({
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <Card className="w-full overflow-hidden rounded-lg py-0 shadow-sm transition-shadow hover:shadow-md">
-      <div className="flex h-full flex-col">
-        <div className="flex-1 overflow-hidden">
+    <Card className="w-full overflow-hidden rounded-lg py-0 shadow-lg transition-shadow hover:shadow-xl">
+      <div className="flex h-full flex-col p-2 rounded-lg overflow-hidden">
+        <div className="flex-1 relative overflow-hidden rounded-lg">
           <Image
             src={isValidUrl(image ?? "") ? image! : "/no-image.png"}
             width={500}
             height={500}
             alt={title}
-            className="aspect-square h-full w-full rounded-t-lg object-cover transition-all duration-500 hover:scale-125"
+            className="aspect-square h-full w-full object-cover transition-all duration-300 hover:scale-115"
           />
+
+          <p className="shadow-lg select-none absolute bottom-2 right-2 rounded-lg bg-amber-300/95 border-1 border-amber-50 px-2 py-1 font-bold text-amber-950">
+            {price}₽
+          </p>
         </div>
 
-        <figcaption className="flex justify-between space-x-4 p-4">
-          <div className="flex flex-col flex-1 gap-1">
-            <h3 className="line-clamp-1 text-sm font-semibold leading-tight">
+        <figcaption className="flex justify-between px-2 py-2">
+          <div className="flex flex-col flex-1 gap-1 justify-center">
+            <h3 className="text-md md:text-sm md:line-clamp-1 font-semibold leading-tight">
               {title}
             </h3>
 
-            <p
-              onClick={() => setExpanded((prev) => !prev)}
-              className={cn(
-                "flex flex-col text-xs leading-tight text-muted-foreground cursor-pointer",
-                !expanded && "line-clamp-2"
-              )}
-            >
-              {description || ""}
-              {time_restriction && (
-                <span className="text-xs text-muted-foreground">
-                  {time_restriction}
-                </span>
-              )}
-            </p>
+            {description && (
+              <p
+                onClick={() => setExpanded((prev) => !prev)}
+                className={cn(
+                  "flex flex-col text-xs leading-tight text-muted-foreground cursor-pointer",
+                  !expanded && "line-clamp-2"
+                )}
+              >
+                {description || ""}
+                {time_restriction && (
+                  <span className="text-xs text-muted-foreground">
+                    {time_restriction}
+                  </span>
+                )}
+              </p>
+            )}
           </div>
-
-          <p className="flex-shrink-0 self-start whitespace-nowrap rounded-lg bg-accent p-1 font-bold text-primary">
-            {price} р.
-          </p>
         </figcaption>
       </div>
     </Card>
