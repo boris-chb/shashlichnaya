@@ -1,4 +1,5 @@
 import { grotesk } from "@/app/layout";
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
@@ -16,9 +17,13 @@ export default function AboutPage() {
             {" "}
             Добро пожаловать в Горбуфет Шашлычная
           </h1>
-          <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full font-semibold transition duration-300">
+          <Link
+            href="https://taplink.cc/alkobufet.shashlik"
+            type="button"
+            className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full font-semibold transition duration-300"
+          >
             Зарезервировать стол
-          </button>
+          </Link>
         </div>
       </section>
 

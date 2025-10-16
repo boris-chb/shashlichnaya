@@ -69,16 +69,16 @@ export default function RestaurantMenu({ menu }: { menu: Menu }) {
             />
           );
         })}
+        {"drink" in currentMenu && (
+          <div
+            ref={(el) => {
+              sectionRefs.current["drink"] = el;
+            }}
+          >
+            <DrinksTabs drinks={currentMenu.drink} />
+          </div>
+        )}
       </div>
-      {"drink" in currentMenu && (
-        <div
-          ref={(el) => {
-            sectionRefs.current["drink"] = el;
-          }}
-        >
-          <DrinksTabs drinks={currentMenu.drink} />
-        </div>
-      )}
     </>
   );
 }

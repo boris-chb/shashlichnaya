@@ -40,7 +40,7 @@ export default function RootLayout({
           className={`${grotesk.className} fixed top-0 left-0 w-full z-50`}
         />
         <div className="pt-20  min-h-screen ">{children}</div>
-        <footer className="row-start-3 flex flex-col items-center justify-center gap-2 py-6 text-sm text-muted-foreground">
+        <footer className="row-start-3 flex flex-col items-center justify-center gap-1 py-4 text-sm text-muted-foreground">
           <p>© 2025 Шашлычная</p>
           <p className="text-xs">С любовью приготовлено для вас ❤️</p>
         </footer>
