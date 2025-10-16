@@ -1,8 +1,6 @@
 import { CategoryTabs } from "@/components/category-tabs";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Menu, Search } from "lucide-react";
-import Image from "next/image";
+import { Search } from "lucide-react";
 
 type Category = {
   id: string;
@@ -21,35 +19,14 @@ export function MenuHeader({
   onCategoryClick,
 }: CategoryTabsProps) {
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/75 border-primary/10 sticky top-0 z-50 border-b backdrop-blur">
-      <div className="flex items-center justify-between p-4">
-        <div className="flex items-center gap-3">
-          <Image
-            src="/bufet-logo.jpg"
-            alt="logo"
-            width={64}
-            height={64}
-            className="rounded-full"
-          />
-          <div>
-            <h1 className="text-lg font-bold text-balance">
-              {`Горбуфет Шашлычная`}
-            </h1>
-            <p className="text-muted-foreground text-xs">
-              {`Домашние блюда, приготовленные с душой`}
-            </p>
-          </div>
-        </div>
-        <Button variant="ghost" size="icon">
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">Open menu</span>
-        </Button>
-      </div>
+    <header
+      className={` bg-background/95 supports-[backdrop-filter]:bg-background/75 border-primary/10 sticky top-24 z-50 border-b backdrop-blur`}
+    >
       <div className="px-4 pb-4">
         <div className="relative">
           <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
           <Input
-            placeholder="Поиск блюд..."
+            placeholder="Поиск блюд"
             className="bg-card border-border pl-10"
           />
         </div>

@@ -36,10 +36,10 @@ export function CategoryTabs({
   }, [activeCategory]);
 
   return (
-    <div className="px-4 py-4">
+    <div className="px-1 py-4">
       <div
         ref={containerRef}
-        className="scrollbar-hide flex gap-2 overflow-x-auto pb-2"
+        className="no-scrollbar flex gap-2 overflow-x-auto pb-2"
       >
         {categories.map((category) => (
           <button
