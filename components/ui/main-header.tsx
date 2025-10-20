@@ -34,7 +34,7 @@ export function MainHeader({
           </div>
         </div>
 
-        <div className="flex gap-2 basis-1/4 items-center justify-end">
+        <div className="flex gap-2 basis-1/4 items-center justify-center lg:justify-end lg:pr-8">
           <Link href="/about" className="text-gray-700 hover:text-gray-900">
             О нас
           </Link>

@@ -25,7 +25,7 @@ export default async function MenuPage() {
   const groupedMenu = groupMenuItems(menu);
 
   return (
-    <div className="px-2 md:px-4 min-h-full ">
+    <div className="min-h-full ">
       <RestaurantMenu menu={groupedMenu} />
     </div>
   );

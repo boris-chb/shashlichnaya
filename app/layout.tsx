@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${grotesk.variable} antialiased bg-yellow-50/30`}
+        className={`${geistSans.variable} ${geistMono.variable} ${grotesk.variable} antialiased `}
       >
         <MainHeader
           className={`${grotesk.className} fixed top-0 left-0 w-full z-50`}

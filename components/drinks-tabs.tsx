@@ -10,7 +10,7 @@ export function DrinksTabs({ drinks }: DrinksTabsProps) {
   const subcategories = Array.from(new Set(drinks.map((d) => d.subcategory)));
 
   return (
-    <div className="flex w-full flex-col gap-4 py-2">
+    <div className="flex w-full flex-col gap-4 py-2 px-2 lg:px-4">
       <h1 className="mb-2 text-3xl px-2 md:text-3xl font-semibold">Напитки</h1>
       <Tabs defaultValue={subcategories[0]}>
         <div className="overflow-x-auto no-scrollbar">

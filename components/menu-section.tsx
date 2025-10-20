@@ -34,7 +34,7 @@ export const MenuSection = forwardRef<HTMLDivElement, MenuSectionProps>(
       <section
         {...rest}
         ref={ref}
-        className={cn(`scroll-mb-[93px]`, className)}
+        className={cn(`scroll-mb-[93px] px-2 lg:px-4`, className)}
       >
         <h2 className="mb-2 text-3xl px-2 md:text-3xl font-semibold">
           {title}
