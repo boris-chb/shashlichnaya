@@ -5,6 +5,8 @@ import { MenuHeader } from "@/components/menu-header";
 import { Menu, MenuSection } from "@/components/menu-section";
 import { useEffect, useRef, useState } from "react";
 
+const HEADER_HEIGHT = 160;
+
 export default function RestaurantMenu({ menu }: { menu: Menu }) {
   const [activeCategory, setActiveCategory] = useState("");
   const [currentMenu, setMenu] = useState<Menu>(menu);
@@ -38,12 +40,11 @@ export default function RestaurantMenu({ menu }: { menu: Menu }) {
   useEffect(() => {
     const element = sectionRefs.current[activeCategory];
     if (activeCategory && element) {
-      const headerHeight = 250;
       const elementPosition =
         element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerHeight;
+      const offsetPosition = elementPosition - HEADER_HEIGHT;
 
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      window.scrollTo({ top: offsetPosition, behavior: "auto" });
     }
   }, [activeCategory]);
 

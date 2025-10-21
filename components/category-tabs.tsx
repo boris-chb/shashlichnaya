@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
 
 type Category = {
@@ -36,28 +37,23 @@ export function CategoryTabs({
   }, [activeCategory]);
 
   return (
-    <div className="px-1 py-4">
-      <div
-        ref={containerRef}
-        className="no-scrollbar flex gap-2 overflow-x-auto"
-      >
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            ref={(el) => {
-              categoryRefs.current[category.id] = el;
-            }}
-            className={`min-w-fit rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-              activeCategory === category.id
-                ? "bg-blue-500 text-white shadow-md"
-                : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
-            }`}
-            onClick={() => onCategoryClick(category.id)}
-          >
-            {category.label}
-          </button>
-        ))}
-      </div>
+    <div ref={containerRef} className="no-scrollbar flex gap-2 overflow-x-auto">
+      {categories.map((category) => (
+        <Button
+          key={category.id}
+          ref={(el) => {
+            categoryRefs.current[category.id] = el;
+          }}
+          className={`min-w-fit rounded-lg px-4 py-2 text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+            activeCategory === category.id
+              ? "bg-amber-400/75 border-1 border-amber-950/40  text-amber-950"
+              : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
+          }`}
+          onClick={() => onCategoryClick(category.id)}
+        >
+          {category.label}
+        </Button>
+      ))}
     </div>
   );
 }
