@@ -36,8 +36,8 @@ export function MenuHeader({
   }, []);
 
   return (
-    <header className="border-t-[1px] bg-background/95 supports-[backdrop-filter]:bg-background/75 border-primary/10 sticky top-20 z-40 border-b backdrop-blur py-4">
-      <div className="flex items-center justify-between px-2 gap-2 ">
+    <header className="border-t-[1px] bg-background/95 supports-[backdrop-filter]:bg-background/75 border-primary/10 sticky top-20 z-40 border-b backdrop-blur">
+      <div className="flex items-center justify-between p-2 gap-2 ">
         <div
           ref={searchRef}
           className={cn(
@@ -56,14 +56,12 @@ export function MenuHeader({
             />
           )}
         </div>
-        <div className="flex-1 overflow-x-auto no-scrollbar">
-          <div className="flex gap-2 min-w-max ">
-            <CategoryTabs
-              categories={categories}
-              activeCategory={activeCategory}
-              onCategoryClick={onCategoryClick}
-            />
-          </div>
+        <div className="flex gap-2 min-w-0 flex-1">
+          <CategoryTabs
+            categories={categories}
+            activeCategory={activeCategory}
+            onCategoryClick={onCategoryClick}
+          />
         </div>
       </div>
     </header>

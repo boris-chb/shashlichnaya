@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { MenuDropdown } from "@/components/ui/menu-dropdown";
 
 export function MainHeader({
   className,
@@ -38,9 +39,7 @@ export function MainHeader({
           <Link href="/about" className="text-gray-700 hover:text-gray-900">
             О нас
           </Link>
-          <Link href="/menu" className="text-gray-700 hover:text-gray-900">
-            Меню
-          </Link>
+          <MenuDropdown />
         </div>
       </div>
     </header>
