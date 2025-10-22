@@ -2,11 +2,6 @@ import RestaurantMenu from "@/components/menu";
 import { Menu, MenuItem } from "@/components/menu-section";
 import { Metadata } from "next";
 
-const PELMEN_MENU_URL =
-  "https://docs.google.com/spreadsheets/d/1JKzbS2SxR1Oa4ciTxLXqACdQirNjDLqbMBjlzDqjtpY/gviz/tq?tqx=out:json&gid=1561920020";
-const SHASHLYK_MENU_URL =
-  "https://docs.google.com/spreadsheets/d/1JKzbS2SxR1Oa4ciTxLXqACdQirNjDLqbMBjlzDqjtpY/gviz/tq?tqx=out:json";
-
 const MENU_URLS = {
   shashlyk:
     "https://docs.google.com/spreadsheets/d/1JKzbS2SxR1Oa4ciTxLXqACdQirNjDLqbMBjlzDqjtpY/gviz/tq?tqx=out:json",
@@ -61,8 +56,6 @@ async function getMenu(url: string) {
   try {
     const parsedData = JSON.parse(jsonString);
 
-    console.log(parsedData.table.cols);
-
     // Convert to normal JSON format
     const normalJson = parsedData.table.rows.map((row: TableRow) => {
       const item: Record<string, unknown> = {};
@@ -85,6 +78,8 @@ function groupMenuItems(menuData: MenuItem[]): Menu {
   const groupedMenu: Menu = {};
 
   menuData.forEach((item: MenuItem) => {
+    item.price = convertPrice(String(item.price));
+    console.log(item);
     const category = item.category?.toLowerCase() || "other";
 
     if (!groupedMenu[category]) {
@@ -95,4 +90,12 @@ function groupMenuItems(menuData: MenuItem[]): Menu {
   });
 
   return groupedMenu;
+}
+
+function convertPrice(val: string) {
+  if (val.includes(".")) {
+    const [a, b] = val.split(".");
+    return `${a} / ${b}0`;
+  }
+  return val;
 }
