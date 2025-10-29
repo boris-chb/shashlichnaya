@@ -1,13 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 import { MenuDropdown } from "@/components/ui/menu-dropdown";
+import { useParams } from "next/navigation";
 
 export function MainHeader({
   className,
   ...rest
 }: HTMLAttributes<HTMLElement>) {
+  const { menuType } = useParams();
+
+  console.log(menuType);
+
   return (
     <header
       className={cn(
@@ -27,7 +34,7 @@ export function MainHeader({
           />
           <div className="flex flex-col">
             <h1 className="text-lg font-bold text-balance">
-              {`Горбуфет Шашлычная`}
+              {`Горбуфет ${menuType === "pelmen" ? "Пельменная" : "Шашлычная"}`}
             </h1>
             <p className="text-muted-foreground text-xs">
               {`Домашние блюда, приготовленные с душой`}

@@ -79,7 +79,6 @@ function groupMenuItems(menuData: MenuItem[]): Menu {
 
   menuData.forEach((item: MenuItem) => {
     item.price = convertPrice(String(item.price));
-    console.log(item);
     const category = item.category?.toLowerCase() || "other";
 
     if (!groupedMenu[category]) {
