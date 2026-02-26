@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["*"],
   images: {
     remotePatterns: [
       {
@@ -33,24 +34,9 @@ const nextConfig: NextConfig = {
         pathname: "/s/**",
       },
     ],
-    // unoptimized: true,
+    unoptimized: true,
   },
-  // webpack: (config) => {
-  //   config.module.rules.push({
-  //     test: /\.csv$/,
-  //     use: [
-  //       {
-  //         loader: "csv-loader",
-  //         options: {
-  //           dynamicTyping: true,
-  //           header: true,
-  //           skipEmptyLines: true,
-  //         },
-  //       },
-  //     ],
-  //   });
-  //   return config;
-  // },
+
   turbopack: {
     rules: {
       "*.csv": {
