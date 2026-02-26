@@ -4,92 +4,92 @@ import { DrinksTabs } from "@/components/drinks-tabs";
 import { MenuHeader } from "@/components/menu-header";
 import { Menu, MenuSection } from "@/components/menu-section";
 import { useEffect, useRef, useState } from "react";
+import { MenuContext } from "@/components/menu-context";
 
-const HEADER_HEIGHT = 160;
+const CATEGORY_LABELS: Record<string, string> = {
+  main: "Прейскурант блюд",
+  lunch: "Прейскурант на обед",
+  night: "Ночное блюдо",
+  drink: "Прейскурант напитков",
+};
 
-export default function RestaurantMenu({ menu }: { menu: Menu }) {
+function useRestaurantMenu(menu: Menu) {
   const [activeCategory, setActiveCategory] = useState("");
-  const [currentMenu, setMenu] = useState<Menu>(menu);
+  const [query, setQuery] = useState("");
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const categories = Object.keys(menu).map((key) => ({
-    id: key,
-    label: getCategoryLabel(key),
+  const categories = Object.keys(menu).map((id) => ({
+    id,
+    label: CATEGORY_LABELS[id] || id,
   }));
 
-  function searchMenu(query: string) {
-    if (!query.trim()) {
-      setMenu(menu);
-      return;
-    }
-
-    const q = query.toLowerCase();
-    const filtered = Object.entries(menu).reduce((acc, [key, items]) => {
-      const matched = items.filter(
-        (item) =>
-          item?.name?.toLowerCase().includes(q) ||
-          item?.description?.toLowerCase().includes(q)
-      );
-      if (matched.length) acc[key] = matched;
-      return acc;
-    }, {} as Menu);
-
-    setMenu(filtered);
-  }
+  const filteredMenu: Menu = query.trim()
+    ? Object.fromEntries(
+        Object.entries(menu)
+          .map(([key, items]) => [
+            key,
+            items.filter(
+              (i) =>
+                i.name?.toLowerCase().includes(query.toLowerCase()) ||
+                i.description?.toLowerCase().includes(query.toLowerCase()),
+            ),
+          ])
+          .filter(([, items]) => items.length > 0),
+      )
+    : menu;
 
   useEffect(() => {
-    const element = sectionRefs.current[activeCategory];
-    if (activeCategory && element) {
-      const elementPosition =
-        element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - HEADER_HEIGHT;
-
-      window.scrollTo({ top: offsetPosition, behavior: "auto" });
+    const el = sectionRefs.current[activeCategory];
+    if (el) {
+      el.scrollIntoView({
+        behavior: "auto",
+        block: "start",
+      });
     }
   }, [activeCategory]);
 
+  return {
+    activeCategory,
+    setActiveCategory,
+    query,
+    setQuery,
+    sectionRefs,
+    categories,
+    filteredMenu,
+  };
+}
+
+export default function RestaurantMenu({ menu }: { menu: Menu }) {
+  const contextValue = useRestaurantMenu(menu);
+  const { filteredMenu, categories, sectionRefs } = contextValue;
+
   return (
-    <>
-      <MenuHeader
-        categories={categories}
-        activeCategory={activeCategory}
-        onCategoryClick={setActiveCategory}
-        onSearchMenu={searchMenu}
-      />
-      <div className="flex flex-col gap-8 mt-4">
-        {categories.map((category) => {
-          if (category.id === "drink") return null;
+    <MenuContext.Provider value={contextValue}>
+      <MenuHeader />
+      <div className="mt-4 flex flex-col gap-8">
+        {categories.map(({ id, label }) => {
+          if (id === "drink" || !filteredMenu[id]) return null;
           return (
             <MenuSection
-              ref={(el) => {
-                sectionRefs.current[category.id] = el;
+              key={id}
+              ref={(el: HTMLDivElement | null) => {
+                sectionRefs.current[id] = el;
               }}
-              key={category.id}
-              title={category.label}
-              items={currentMenu[category.id]}
+              title={label}
+              items={filteredMenu[id]}
             />
           );
         })}
-        {"drink" in currentMenu && (
+        {filteredMenu.drink && (
           <div
             ref={(el) => {
               sectionRefs.current["drink"] = el;
             }}
           >
-            <DrinksTabs drinks={currentMenu.drink} />
+            <DrinksTabs drinks={filteredMenu.drink} />
           </div>
         )}
       </div>
-    </>
+    </MenuContext.Provider>
   );
-}
-
-function getCategoryLabel(key: string) {
-  const labelMap: Record<string, string> = {
-    main: "Прейскурант блюд",
-    lunch: "Прейскурант на обед",
-    night: "Ночное блюдо",
-    drink: "Прейскурант напитков",
-  };
-  return labelMap[key] || key;
 }

@@ -25,8 +25,8 @@ export function DishCard({
 
   return (
     <Card className="w-full overflow-hidden rounded-lg py-0 shadow-lg transition-shadow hover:shadow-xl">
-      <div className="flex h-full flex-col p-2 rounded-lg overflow-hidden">
-        <div className="flex-1 relative overflow-hidden rounded-lg">
+      <div className="flex h-full flex-col overflow-hidden rounded-lg p-2">
+        <div className="relative flex-1 overflow-hidden rounded-lg">
           <Image
             src={isValidUrl(image ?? "") ? image! : "/no-image.png"}
             width={500}
@@ -35,28 +35,28 @@ export function DishCard({
             className="aspect-square h-full w-full object-cover transition-all duration-300 hover:scale-115"
           />
 
-          <p className="shadow-lg select-none absolute bottom-2 right-2 rounded-lg bg-amber-300/95 border-1 border-amber-50 px-2 py-1 font-bold text-amber-950">
+          <p className="absolute right-2 bottom-2 rounded-lg border border-amber-50 bg-amber-300/95 px-2 py-1 font-bold text-amber-950 shadow-lg select-none">
             {price}₽
           </p>
         </div>
 
         <figcaption className="flex justify-between px-2 py-2">
-          <div className="flex flex-col flex-1 gap-1 justify-center">
-            <h3 className="text-md md:text-sm md:line-clamp-1 font-semibold leading-tight">
+          <div className="flex flex-1 flex-col justify-center gap-1">
+            <h3 className="text-md leading-tight font-semibold md:line-clamp-1 md:text-sm">
               {title}
             </h3>
 
             {description && (
               <p
-                onClick={() => setExpanded((prev) => !prev)}
+                onClick={() => setExpanded(!expanded)}
                 className={cn(
-                  "flex flex-col text-xs leading-tight text-muted-foreground cursor-pointer",
-                  !expanded && "line-clamp-2"
+                  "text-muted-foreground flex cursor-pointer flex-col text-xs leading-tight",
+                  !expanded && "line-clamp-2",
                 )}
               >
                 {description || ""}
                 {time_restriction && (
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground text-xs">
                     {time_restriction}
                   </span>
                 )}

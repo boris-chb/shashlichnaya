@@ -27,16 +27,16 @@ export const MenuSection = forwardRef<HTMLDivElement, MenuSectionProps>(
   ({ title, items, className, ...rest }, ref) => {
     if (!items) return null;
     const filteredItems = items?.filter((item) =>
-      isAvailableNow(item.time_restriction)
+      isAvailableNow(item.time_restriction),
     );
 
     return (
       <section
         {...rest}
         ref={ref}
-        className={cn(`scroll-mb-[93px] px-2 lg:px-4`, className)}
+        className={cn(`scroll-mt-40 scroll-mb-24 px-2 lg:px-4`, className)}
       >
-        <h2 className="mb-2 text-3xl px-2 md:text-3xl font-semibold">
+        <h2 className="mb-2 px-2 text-3xl font-semibold md:text-3xl">
           {title}
         </h2>
         <div className="flex flex-col gap-4 sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
@@ -52,7 +52,7 @@ export const MenuSection = forwardRef<HTMLDivElement, MenuSectionProps>(
         </div>
       </section>
     );
-  }
+  },
 );
 
 MenuSection.displayName = "MenuSection";

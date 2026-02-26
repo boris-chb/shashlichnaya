@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Navbar } from "@/components/ui/navbar";
 import "./globals.css";
-import { MainHeader } from "@/components/ui/main-header";
 
 export const metadata: Metadata = {
   title: "Горбуфет «Шашлычная»",
@@ -32,18 +33,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
+    <html lang="ru" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${grotesk.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} ${grotesk.variable} flex h-dvh flex-col overflow-hidden antialiased`}
       >
-        <MainHeader
-          className={`${grotesk.className} fixed top-0 left-0 w-full z-50`}
-        />
-        <div className="pt-20  min-h-screen ">{children}</div>
-        <footer className="row-start-3 flex flex-col items-center justify-center gap-1 py-4 text-sm text-muted-foreground">
-          <p>© 2025 Шашлычная</p>
-          <p className="text-xs">С любовью приготовлено для вас ❤️</p>
-        </footer>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar className={`${grotesk.className} z-50 shrink-0`} />
+          <div className="flex flex-1 flex-col overflow-y-auto">
+            <main className="flex-1 shrink-0">{children}</main>
+            <footer className="text-muted-foreground mt-4 flex shrink-0 flex-col items-center justify-center gap-1 pt-4 pb-4 text-sm">
+              <p>© 2025 Шашлычная</p>
+              <p className="text-xs">С любовью приготовлено для вас ❤️</p>
+            </footer>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
